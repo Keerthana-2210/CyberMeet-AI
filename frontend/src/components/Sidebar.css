@@ -1,0 +1,60 @@
+.cyber-sidebar {
+  width: 240px;
+  height: 100vh;
+  background: var(--bg-card);
+  border-right: var(--border-glow);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.sidebar-header {
+  padding: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo-glitch {
+  font-weight: 700;
+  color: var(--accent-cyan);
+  letter-spacing: 4px;
+}
+
+.nav-links {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  transition: all 0.3s;
+  border-left: 3px solid transparent;
+}
+
+.nav-item .icon { font-size: 1.2rem; }
+
+.nav-item:hover {
+  background: rgba(34, 211, 238, 0.05);
+  color: #fff;
+}
+
+.nav-item.active {
+  background: rgba(34, 211, 238, 0.1);
+  color: var(--accent-cyan);
+  border-left-color: var(--accent-cyan);
+}
+
+.sidebar-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
