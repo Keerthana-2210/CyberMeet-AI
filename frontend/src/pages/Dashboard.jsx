@@ -52,6 +52,16 @@ const Dashboard = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to permanently delete this incident?")) return;
+    try {
+      await axios.delete(`${API_BASE_URL}/api/alerts/${id}`);
+      fetchAlerts();
+    } catch (err) {
+      console.error('Delete failed:', err);
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <header className="soc-header">
@@ -119,9 +129,12 @@ const Dashboard = () => {
                   </div>
                   <div className="alert-footer">
                     <span className={`status-text ${alert.status === 'Open' ? 'open' : 'in-progress'}`}>{alert.status}</span>
-                    {!alert.ticketCreated && (
-                      <button className="btn-action" onClick={() => createTicket(alert._id)}>INITIATE TICKET</button>
-                    )}
+                    <div className="actions">
+                      {!alert.ticketCreated && (
+                        <button className="btn-action" onClick={() => createTicket(alert._id)}>INITIATE TICKET</button>
+                      )}
+                      <button className="btn-action delete" onClick={() => handleDelete(alert._id)}>DELETE</button>
+                    </div>
                   </div>
                 </div>
               ))

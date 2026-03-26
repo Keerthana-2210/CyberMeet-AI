@@ -52,4 +52,16 @@ router.patch('/:id/ticket', async (req, res) => {
   }
 });
 
+// @route   DELETE api/alerts/:id
+// @desc    Delete an alert
+router.delete('/:id', async (req, res) => {
+  try {
+    const success = await Alert.findByIdAndRemove(req.params.id);
+    if (!success) return res.status(404).json({ msg: 'Alert not found' });
+    res.json({ msg: 'Alert removed' });
+  } catch (err) {
+    res.status(500).json({ msg: 'Server Error' });
+  }
+});
+
 module.exports = router;

@@ -55,8 +55,8 @@
     "severity": "High",
     "description": "High risk patterns detected: verify, account + pattern matches",
     "source": "Manual Scan",
-    "status": "Open",
+    "status": "In Progress",
     "timestamp": "2026-03-26T05:30:39.574Z",
-    "ticketCreated": false
+    "ticketCreated": true
   }
 ]

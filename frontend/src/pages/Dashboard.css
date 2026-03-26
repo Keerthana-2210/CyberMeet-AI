@@ -179,6 +179,22 @@
   color: #000;
 }
 
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-action.delete {
+  border-color: rgba(239, 68, 68, 0.5);
+  color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.btn-action.delete:hover {
+  background: var(--accent-red);
+  color: #fff;
+}
+
 @media (max-width: 1000px) {
   .main-grid { grid-template-columns: 1fr; }
   .stats-row { grid-template-columns: 1fr; }

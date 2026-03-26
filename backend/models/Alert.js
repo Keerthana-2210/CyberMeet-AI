@@ -51,6 +51,15 @@ class Alert {
     fs.writeFileSync(DB_PATH, JSON.stringify(alerts, null, 2));
     return alerts[index];
   }
+
+  static async findByIdAndRemove(id) {
+    const data = fs.readFileSync(DB_PATH, 'utf8');
+    const alerts = JSON.parse(data);
+    const filtered = alerts.filter(a => a._id !== id);
+    if (alerts.length === filtered.length) return null;
+    fs.writeFileSync(DB_PATH, JSON.stringify(filtered, null, 2));
+    return true;
+  }
 }
 
 module.exports = Alert;
