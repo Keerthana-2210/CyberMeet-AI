@@ -1,0 +1,24 @@
+[
+  {
+    "_id": "1774509004562",
+    "title": "project",
+    "date": "2026-03-26T07:10:04.562Z",
+    "audioUrl": "uploads\\1774509004547-audio.mp3",
+    "actionItems": [
+      {
+        "task": "Fix back-end database",
+        "assignee": "Unassigned",
+        "status": "Pending"
+      }
+    ],
+    "createdAt": "2026-03-26T07:10:04.563Z",
+    "transcript": " Hello everyone. Welcome to the project status meeting. The front-end looks great. We need to fix the back-end database by tomorrow. Meeting adjourned.",
+    "summary": [
+      "The project status meeting was held to discuss the current state of the project.",
+      "The front-end development is progressing well.",
+      "The back-end database requires immediate attention and needs to be fixed by tomorrow."
+    ],
+    "sentiment": "Neutral",
+    "sentimentScore": 0.5
+  }
+]

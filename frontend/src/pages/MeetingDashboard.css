@@ -99,3 +99,20 @@
   text-align: center;
   color: var(--text-dim);
 }
+
+.btn-action.delete {
+  background: rgba(255, 68, 68, 0.1);
+  border-color: #ff4444;
+  color: #ff4444;
+}
+
+.btn-action.delete:hover {
+  background: #ff4444;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.card-footer .actions {
+  display: flex;
+  gap: 10px;
+}

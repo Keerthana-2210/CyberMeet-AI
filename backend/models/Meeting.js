@@ -63,6 +63,15 @@ class Meeting {
     fs.writeFileSync(DB_PATH, JSON.stringify(meetings, null, 2));
     return meetings[index];
   }
+
+  static async findByIdAndRemove(id) {
+    const data = fs.readFileSync(DB_PATH, 'utf8');
+    const meetings = JSON.parse(data);
+    const filtered = meetings.filter(m => m._id !== id);
+    if (meetings.length === filtered.length) return null;
+    fs.writeFileSync(DB_PATH, JSON.stringify(filtered, null, 2));
+    return true;
+  }
 }
 
 module.exports = Meeting;

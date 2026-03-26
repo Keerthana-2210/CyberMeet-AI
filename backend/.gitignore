@@ -1,0 +1,5 @@
+node_modules/
+uploads/
+.env
+error.log
+test_output.txt

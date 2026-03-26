@@ -1,0 +1,62 @@
+[
+  {
+    "_id": "1774079356128",
+    "type": "Critical Phishing Attempt",
+    "severity": "High",
+    "description": "Found multiple suspicious keywords: password, urgent, verify, click here",
+    "source": "Manual Scan",
+    "status": "In Progress",
+    "timestamp": "2026-03-21T07:49:16.129Z",
+    "ticketCreated": true
+  },
+  {
+    "_id": "1774502830913",
+    "type": "Critical Phishing Attempt",
+    "severity": "High",
+    "description": "High risk patterns detected: won, winner, reward + pattern matches",
+    "source": "Manual Scan",
+    "status": "Open",
+    "timestamp": "2026-03-26T05:27:10.913Z",
+    "ticketCreated": false
+  },
+  {
+    "_id": "1774502906668",
+    "type": "Critical Phishing Attempt",
+    "severity": "High",
+    "description": "High risk patterns detected: click here, security, account + pattern matches",
+    "source": "Manual Scan",
+    "status": "Open",
+    "timestamp": "2026-03-26T05:28:26.668Z",
+    "ticketCreated": false
+  },
+  {
+    "_id": "1774502956601",
+    "type": "Critical Phishing Attempt",
+    "severity": "High",
+    "description": "High risk patterns detected: urgent, verify, click here + pattern matches",
+    "source": "Manual Scan",
+    "status": "Open",
+    "timestamp": "2026-03-26T05:29:16.601Z",
+    "ticketCreated": false
+  },
+  {
+    "_id": "1774502988635",
+    "type": "Suspicious Content Detected",
+    "severity": "Medium",
+    "description": "Suspicious elements found: account",
+    "source": "Manual Scan",
+    "status": "Open",
+    "timestamp": "2026-03-26T05:29:48.635Z",
+    "ticketCreated": false
+  },
+  {
+    "_id": "1774503039574",
+    "type": "Critical Phishing Attempt",
+    "severity": "High",
+    "description": "High risk patterns detected: verify, account + pattern matches",
+    "source": "Manual Scan",
+    "status": "Open",
+    "timestamp": "2026-03-26T05:30:39.574Z",
+    "ticketCreated": false
+  }
+]

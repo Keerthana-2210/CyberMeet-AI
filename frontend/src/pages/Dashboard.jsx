@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Dashboard.css';
+import API_BASE_URL from '../config';
 
 const Dashboard = () => {
   const [alerts, setAlerts] = useState([]);
@@ -10,7 +11,7 @@ const Dashboard = () => {
 
   const fetchAlerts = async () => {
     try {
-      const res = await axios.get('http://localhost:5001/api/alerts');
+      const res = await axios.get(`${API_BASE_URL}/api/alerts`);
       setAlerts(res.data);
       
       const newStats = res.data.reduce((acc, curr) => {
@@ -33,7 +34,7 @@ const Dashboard = () => {
     if (!scanContent.trim()) return;
     setScanning(true);
     try {
-      await axios.post('http://localhost:5001/api/alerts/analyze', { content: scanContent, source: 'Manual Scan' });
+      await axios.post(`${API_BASE_URL}/api/alerts/analyze`, { content: scanContent, source: 'Manual Scan' });
       setScanContent('');
       fetchAlerts();
     } catch (err) {
@@ -44,7 +45,7 @@ const Dashboard = () => {
 
   const createTicket = async (id) => {
     try {
-      await axios.patch(`http://localhost:5001/api/alerts/${id}/ticket`);
+      await axios.patch(`${API_BASE_URL}/api/alerts/${id}/ticket`);
       fetchAlerts();
     } catch (err) {
       console.error('Ticket creation failed:', err);

@@ -1,15 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+
+dotenv.config();
+
 const alertRoutes = require('./routes/alerts');
 const meetingRoutes = require('./routes/meetings');
 const fs = require('fs');
 const path = require('path');
 
-dotenv.config();
-
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5002;
 
 // Ensure uploads directory exists
 if (!fs.existsSync('uploads')) {

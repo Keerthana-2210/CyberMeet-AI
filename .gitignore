@@ -1,7 +1,4 @@
 node_modules/
-.env
-backend/data/*.json
-backend/uploads/
 dist/
-.DS_Store
-*.log
+.env
+meeting_sample.mp3
