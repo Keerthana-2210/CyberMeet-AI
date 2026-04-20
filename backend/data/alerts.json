@@ -1,62 +1,32 @@
 [
   {
-    "_id": "1774079356128",
-    "type": "Critical Phishing Attempt",
-    "severity": "High",
-    "description": "Found multiple suspicious keywords: password, urgent, verify, click here",
-    "source": "Manual Scan",
-    "status": "In Progress",
-    "timestamp": "2026-03-21T07:49:16.129Z",
-    "ticketCreated": true
-  },
-  {
-    "_id": "1774502830913",
+    "_id": "1774511654270",
     "type": "Critical Phishing Attempt",
     "severity": "High",
     "description": "High risk patterns detected: won, winner, reward + pattern matches",
     "source": "Manual Scan",
     "status": "Open",
-    "timestamp": "2026-03-26T05:27:10.913Z",
+    "timestamp": "2026-03-26T07:54:14.270Z",
     "ticketCreated": false
   },
   {
-    "_id": "1774502906668",
-    "type": "Critical Phishing Attempt",
-    "severity": "High",
-    "description": "High risk patterns detected: click here, security, account + pattern matches",
-    "source": "Manual Scan",
-    "status": "Open",
-    "timestamp": "2026-03-26T05:28:26.668Z",
-    "ticketCreated": false
-  },
-  {
-    "_id": "1774502956601",
-    "type": "Critical Phishing Attempt",
-    "severity": "High",
-    "description": "High risk patterns detected: urgent, verify, click here + pattern matches",
-    "source": "Manual Scan",
-    "status": "Open",
-    "timestamp": "2026-03-26T05:29:16.601Z",
-    "ticketCreated": false
-  },
-  {
-    "_id": "1774502988635",
+    "_id": "1774511673316",
     "type": "Suspicious Content Detected",
     "severity": "Medium",
-    "description": "Suspicious elements found: account",
+    "description": "Suspicious elements found: password",
     "source": "Manual Scan",
     "status": "Open",
-    "timestamp": "2026-03-26T05:29:48.635Z",
+    "timestamp": "2026-03-26T07:54:33.316Z",
     "ticketCreated": false
   },
   {
-    "_id": "1774503039574",
-    "type": "Critical Phishing Attempt",
-    "severity": "High",
-    "description": "High risk patterns detected: verify, account + pattern matches",
+    "_id": "1774517436648",
+    "type": "Suspicious Content Detected",
+    "severity": "Medium",
+    "description": "Suspicious elements found: password",
     "source": "Manual Scan",
-    "status": "In Progress",
-    "timestamp": "2026-03-26T05:30:39.574Z",
-    "ticketCreated": true
+    "status": "Open",
+    "timestamp": "2026-03-26T09:30:36.648Z",
+    "ticketCreated": false
   }
 ]
