@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import MeetingDashboard from './pages/MeetingDashboard';
 import MeetingDetail from './pages/MeetingDetail';
+import IncidentResolution from './pages/IncidentResolution';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/soc" element={<Dashboard />} />
             <Route path="/meetings" element={<MeetingDashboard />} />
             <Route path="/meetings/:id" element={<MeetingDetail />} />
+            <Route path="/soc/resolution/:id" element={<IncidentResolution />} />
           </Routes>
         </div>
       </div>

@@ -1,33 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useSecurity } from '../context/SecurityContext';
 import './Dashboard.css';
 import API_BASE_URL from '../config';
 
 const Dashboard = () => {
-  const [alerts, setAlerts] = useState([]);
+  const { alerts, fetchAlerts } = useSecurity();
   const [scanContent, setScanContent] = useState('');
   const [scanning, setScanning] = useState(false);
-  const [stats, setStats] = useState({ high: 0, medium: 0, low: 0 });
-
-  const fetchAlerts = async () => {
-    try {
-      const res = await axios.get(`${API_BASE_URL}/api/alerts`);
-      setAlerts(res.data);
-      
-      const newStats = res.data.reduce((acc, curr) => {
-        const sev = curr.severity.toLowerCase();
-        acc[sev] = (acc[sev] || 0) + 1;
-        return acc;
-      }, { high: 0, medium: 0, low: 0 });
-      setStats(newStats);
-    } catch (err) {
-      console.error('Error fetching alerts:', err);
-    }
-  };
-
-  useEffect(() => {
-    fetchAlerts();
-  }, []);
+  const navigate = useNavigate();
 
   const handleScan = async (e) => {
     e.preventDefault();
@@ -43,9 +25,11 @@ const Dashboard = () => {
     setScanning(false);
   };
 
-  const createTicket = async (id) => {
+  const createTicket = async (alert) => {
     try {
-      await axios.patch(`${API_BASE_URL}/api/alerts/${id}/ticket`);
+      await axios.patch(`${API_BASE_URL}/api/alerts/${alert._id}/ticket`);
+      // Pass the entire alert data to the resolution dashboard
+      navigate(`/soc/resolution/${alert._id}`, { state: { alert } });
       fetchAlerts();
     } catch (err) {
       console.error('Ticket creation failed:', err);
@@ -61,6 +45,15 @@ const Dashboard = () => {
       console.error('Delete failed:', err);
     }
   };
+
+  // Filter out Resolved alerts for the active view
+  const activeAlerts = alerts.filter(a => a.status !== 'Resolved');
+  
+  const stats = activeAlerts.reduce((acc, curr) => {
+    const sev = curr.severity.toLowerCase();
+    acc[sev] = (acc[sev] || 0) + 1;
+    return acc;
+  }, { high: 0, medium: 0, low: 0 });
 
   return (
     <div className="dashboard-container">
@@ -112,10 +105,10 @@ const Dashboard = () => {
             <button className="btn-refresh" onClick={fetchAlerts}>REFRESH</button>
           </div>
           <div className="alerts-list">
-            {alerts.length === 0 ? (
+            {activeAlerts.length === 0 ? (
               <div className="empty-list">No active incidents detected. Monitoring system active.</div>
             ) : (
-              alerts.map(alert => (
+              activeAlerts.map(alert => (
                 <div key={alert._id} className="alert-item">
                   <div className="alert-top">
                     <span className={`badge ${alert.severity.toLowerCase() === 'high' ? 'critical' : alert.severity.toLowerCase() === 'medium' ? 'warning' : 'info'}`}>
@@ -125,13 +118,15 @@ const Dashboard = () => {
                   </div>
                   <div className="alert-body">
                     <p>{alert.description}</p>
-                    <span className="source">Source: {alert.source}</span>
+                    <span className="source-text">Source: {alert.source}</span>
                   </div>
                   <div className="alert-footer">
                     <span className={`status-text ${alert.status === 'Open' ? 'open' : 'in-progress'}`}>{alert.status}</span>
                     <div className="actions">
-                      {!alert.ticketCreated && (
-                        <button className="btn-action" onClick={() => createTicket(alert._id)}>INITIATE TICKET</button>
+                      {!alert.ticketCreated ? (
+                        <button className="btn-action" onClick={() => createTicket(alert)}>INITIATE TICKET</button>
+                      ) : (
+                        <button className="btn-action" onClick={() => navigate(`/soc/resolution/${alert._id}`, { state: { alert } })}>VIEW TICKET</button>
                       )}
                       <button className="btn-action delete" onClick={() => handleDelete(alert._id)}>DELETE</button>
                     </div>

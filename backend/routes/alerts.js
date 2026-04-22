@@ -52,6 +52,19 @@ router.patch('/:id/ticket', async (req, res) => {
   }
 });
 
+// @route   PATCH api/alerts/:id/status
+// @desc    Update alert status
+router.patch('/:id/status', async (req, res) => {
+  try {
+    const { status } = req.body;
+    const alert = await Alert.findByIdAndUpdate(req.params.id, { status });
+    if (!alert) return res.status(404).json({ msg: 'Alert not found' });
+    res.json(alert);
+  } catch (err) {
+    res.status(500).json({ msg: 'Server Error' });
+  }
+});
+
 // @route   DELETE api/alerts/:id
 // @desc    Delete an alert
 router.delete('/:id', async (req, res) => {

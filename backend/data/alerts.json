@@ -5,9 +5,9 @@
     "severity": "High",
     "description": "High risk patterns detected: won, winner, reward + pattern matches",
     "source": "Manual Scan",
-    "status": "Open",
+    "status": "Resolved",
     "timestamp": "2026-03-26T07:54:14.270Z",
-    "ticketCreated": false
+    "ticketCreated": true
   },
   {
     "_id": "1774511673316",
@@ -15,9 +15,9 @@
     "severity": "Medium",
     "description": "Suspicious elements found: password",
     "source": "Manual Scan",
-    "status": "Open",
+    "status": "Resolved",
     "timestamp": "2026-03-26T07:54:33.316Z",
-    "ticketCreated": false
+    "ticketCreated": true
   },
   {
     "_id": "1774517436648",
@@ -25,8 +25,18 @@
     "severity": "Medium",
     "description": "Suspicious elements found: password",
     "source": "Manual Scan",
-    "status": "Open",
+    "status": "In Progress",
     "timestamp": "2026-03-26T09:30:36.648Z",
-    "ticketCreated": false
+    "ticketCreated": true
+  },
+  {
+    "_id": "1776830478876",
+    "type": "Suspicious Content Detected",
+    "severity": "Medium",
+    "description": "Suspicious elements found: login",
+    "source": "Manual Scan",
+    "status": "Resolved",
+    "timestamp": "2026-04-22T04:01:18.876Z",
+    "ticketCreated": true
   }
 ]

@@ -2,3 +2,7 @@ node_modules/
 dist/
 .env
 meeting_sample.mp3
+backend/data/*.json
+backend/uploads/
+frontend/.env
+*.mp3
