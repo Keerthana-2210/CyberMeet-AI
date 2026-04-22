@@ -35,6 +35,7 @@ class Meeting {
     this.sentiment = data.sentiment;
     this.sentimentScore = data.sentimentScore;
     this.actionItems = data.actionItems || [];
+    this.executionPlan = data.executionPlan || [];
     this.createdAt = new Date();
   }
 

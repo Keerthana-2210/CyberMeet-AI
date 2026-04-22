@@ -3,20 +3,22 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import './MeetingDetail.css';
 import API_BASE_URL from '../config';
+import TaskExecutionSection from '../components/TaskExecutionSection';
 
 const MeetingDetail = () => {
   const { id } = useParams();
   const [meeting, setMeeting] = useState(null);
 
+  const fetchMeeting = async () => {
+    try {
+      const res = await axios.get(`${API_BASE_URL}/api/meetings/${id}`);
+      setMeeting(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
-    const fetchMeeting = async () => {
-      try {
-        const res = await axios.get(`${API_BASE_URL}/api/meetings/${id}`);
-        setMeeting(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
     fetchMeeting();
   }, [id]);
 
@@ -54,6 +56,8 @@ const MeetingDetail = () => {
             ))}
           </div>
         </section>
+
+        <TaskExecutionSection meeting={meeting} fetchMeeting={fetchMeeting} />
 
         <section className="cyber-panel transcript-section">
           <h2>TRANSCRIPT</h2>

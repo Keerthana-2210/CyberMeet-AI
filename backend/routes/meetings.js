@@ -23,7 +23,16 @@ const processMeeting = async (title, audioPath) => {
 "summary": A detailed, multi-point overview of what was discussed.
 "sentiment": A single word (Positive, Neutral, or Negative).
 "sentimentScore": A number from 0 to 1 representing the positivity.
-"actionItems": An array of objects, each with "task", "assignee" (default "Unassigned"), and "status" (default "Pending").
+"actionItems": An array of objects, each with "task", "assignee", and "status".
+"executionPlan": An array of objects for major tasks with the following keys:
+  - "taskName": The main goal (e.g., Fix back-end database)
+  - "description": Brief overview of why this is needed
+  - "priority": High, Medium, or Low
+  - "assignedPerson": Name (infer from transcript or use 'Unassigned')
+  - "role": (Frontend, Backend, DevOps, QA, Product)
+  - "deadline": Inferred deadline (e.g., '2026-04-23') or 'TBD'
+  - "risk": (Active, Delayed, High Risk) based on context
+  - "subtasks": Array of objects with "id", "text", and "completed" (false)
 
 Transcript:
 ${transcript}`;
@@ -42,7 +51,8 @@ ${transcript}`;
       summary: aiResult.summary || "Summary not generated.",
       sentiment: aiResult.sentiment || "Neutral",
       sentimentScore: aiResult.sentimentScore || 0.5,
-      actionItems: aiResult.actionItems || []
+      actionItems: aiResult.actionItems || [],
+      executionPlan: aiResult.executionPlan || []
     };
   } catch (error) {
     console.error("Groq Processing Error:", error);
@@ -103,6 +113,17 @@ router.get('/:id', async (req, res) => {
   try {
     const meeting = await Meeting.findById(req.params.id);
     if (!meeting) return res.status(404).json({ msg: 'Not found' });
+    res.json(meeting);
+  } catch (err) {
+    res.status(500).json({ msg: 'Server Error' });
+  }
+});
+
+router.patch('/:id/update-execution', async (req, res) => {
+  try {
+    const { executionPlan } = req.body;
+    const meeting = await Meeting.findByIdAndUpdate(req.params.id, { executionPlan });
+    if (!meeting) return res.status(404).json({ msg: 'Meeting not found' });
     res.json(meeting);
   } catch (err) {
     res.status(500).json({ msg: 'Server Error' });

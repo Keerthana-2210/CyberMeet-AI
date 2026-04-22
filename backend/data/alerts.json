@@ -25,7 +25,7 @@
     "severity": "Medium",
     "description": "Suspicious elements found: password",
     "source": "Manual Scan",
-    "status": "In Progress",
+    "status": "Resolved",
     "timestamp": "2026-03-26T09:30:36.648Z",
     "ticketCreated": true
   },
@@ -38,5 +38,35 @@
     "status": "Resolved",
     "timestamp": "2026-04-22T04:01:18.876Z",
     "ticketCreated": true
+  },
+  {
+    "_id": "1776831464145",
+    "type": "Critical Phishing Attempt",
+    "severity": "High",
+    "description": "High risk patterns detected: verify, account + pattern matches",
+    "source": "Manual Scan",
+    "status": "Resolved",
+    "timestamp": "2026-04-22T04:17:44.145Z",
+    "ticketCreated": true
+  },
+  {
+    "_id": "1776832064061",
+    "type": "Critical Phishing Attempt",
+    "severity": "High",
+    "description": "High risk patterns detected: verify, account + pattern matches",
+    "source": "Manual Scan",
+    "status": "In Progress",
+    "timestamp": "2026-04-22T04:27:44.061Z",
+    "ticketCreated": true
+  },
+  {
+    "_id": "1776832110967",
+    "type": "Critical Phishing Attempt",
+    "severity": "High",
+    "description": "High risk patterns detected: won, winner, reward + pattern matches",
+    "source": "Manual Scan",
+    "status": "Open",
+    "timestamp": "2026-04-22T04:28:30.967Z",
+    "ticketCreated": false
   }
 ]
