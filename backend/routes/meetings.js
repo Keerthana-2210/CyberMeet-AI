@@ -89,6 +89,29 @@ router.post('/upload', upload.single('audio'), async (req, res) => {
     processMeeting(title, meeting.audioUrl).then(async (result) => {
       try {
         await Meeting.findByIdAndUpdate(meeting._id, result);
+        
+        // --- NEW: Automatic SOC Incident Creation Pipeline ---
+        // Automatically pass the transcript and summary into the threat analysis engine
+        const analysisContent = `${result.summary}\n\n${result.transcript}`;
+        const detectionService = require('../services/detectionService');
+        const Alert = require('../models/Alert');
+        
+        const securityAnalysis = await detectionService.analyzeContent(analysisContent);
+        
+        if (securityAnalysis.isSuspicious) {
+          console.log(`Security Incident Detected in Meeting: ${title}`);
+          const newAlert = new Alert({
+            type: securityAnalysis.type,
+            severity: securityAnalysis.severity,
+            description: securityAnalysis.reason,
+            source: `Meeting Integration: ${title}`
+          });
+          
+          await newAlert.save();
+          // Optionally, auto-generate a ticket immediately:
+          await Alert.findByIdAndUpdate(newAlert._id, { status: 'In Progress', ticketCreated: true });
+        }
+        
       } catch (err) {
         console.error('Background Update Error:', err);
       }

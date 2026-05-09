@@ -17,6 +17,16 @@ const IncidentResolution = () => {
     const [analysisDone, setAnalysisDone] = useState(false);
     const [suggestedActions, setSuggestedActions] = useState([]);
     
+    const [appliedActions, setAppliedActions] = useState([]);
+
+    const handleApplyMitigation = (actionId) => {
+        setAppliedActions(prev => [...prev, actionId]);
+        // Simulate a small delay then execute the auto-resolve workflow
+        setTimeout(() => {
+            handleAction('Resolved');
+        }, 800);
+    };
+
     useEffect(() => {
         if (!alert) {
             // If still no alert, fetch or redirect
@@ -153,7 +163,14 @@ const IncidentResolution = () => {
                                             <span className="s-text">{action.text}</span>
                                             <span className="s-risk">RISK: {action.risk}</span>
                                         </div>
-                                        <button className="btn-s-action">APPLY</button>
+                                        <button 
+                                            className={`btn-s-action ${appliedActions.includes(action.id) ? 'applied' : ''}`}
+                                            onClick={() => handleApplyMitigation(action.id)}
+                                            disabled={appliedActions.includes(action.id) || resolving}
+                                            style={appliedActions.includes(action.id) ? { background: '#22c55e', color: '#000', borderColor: '#22c55e' } : {}}
+                                        >
+                                            {appliedActions.includes(action.id) ? 'APPLIED ✓' : 'APPLY'}
+                                        </button>
                                     </div>
                                 ))}
                             </div>

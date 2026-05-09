@@ -63,7 +63,7 @@
 
 .main-grid {
   display: grid;
-  grid-template-columns: 350px 1fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
 }
 

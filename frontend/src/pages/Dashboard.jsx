@@ -7,23 +7,7 @@ import API_BASE_URL from '../config';
 
 const Dashboard = () => {
   const { alerts, fetchAlerts } = useSecurity();
-  const [scanContent, setScanContent] = useState('');
-  const [scanning, setScanning] = useState(false);
   const navigate = useNavigate();
-
-  const handleScan = async (e) => {
-    e.preventDefault();
-    if (!scanContent.trim()) return;
-    setScanning(true);
-    try {
-      await axios.post(`${API_BASE_URL}/api/alerts/analyze`, { content: scanContent, source: 'Manual Scan' });
-      setScanContent('');
-      fetchAlerts();
-    } catch (err) {
-      console.error('Scan failed:', err);
-    }
-    setScanning(false);
-  };
 
   const createTicket = async (alert) => {
     try {
@@ -83,21 +67,7 @@ const Dashboard = () => {
       </div>
 
       <div className="main-grid">
-        <section className="cyber-panel tool-panel">
-          <h2>QUICK SCAN TOOL</h2>
-          <p className="description">Input suspicious messages or logs for AI analysis.</p>
-          <form onSubmit={handleScan}>
-            <textarea 
-              placeholder="Paste content here..." 
-              value={scanContent}
-              onChange={(e) => setScanContent(e.target.value)}
-              className="cyber-input"
-            />
-            <button type="submit" className="btn-cyber block" disabled={scanning}>
-              {scanning ? 'SCANNING...' : 'EXECUTE ANALYSIS'}
-            </button>
-          </form>
-        </section>
+        {/* Quick Scan Tool has been removed to enforce meeting-only threat detection */}
 
         <section className="cyber-panel list-panel">
           <div className="list-header">
