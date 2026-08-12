@@ -9,7 +9,10 @@ const analyzeContent = async (content) => {
     'login', 'account', 'verify your identity', 'official notice',
     'security-verification', 'suspicious activity', 'unauthorized access',
     'won', 'winner', 'prize', 'reward', 'bank details', 'transfer', 
-    'congratulations', 'lucky', 'claim', 'lottery', 'cash', 'gift card'
+    'congratulations', 'lucky', 'claim', 'lottery', 'cash', 'gift card',
+    'hacked', 'hacked.', 'breach', 'ransomware', 'malware', 'exfiltrat',
+    'database', 'compromised', 'vulnerability', 'backdoor', 'leak', 'zero-day',
+    'phishing', 'exploit', 'unauthorized', 'attack'
   ];
   const contentLower = content.toLowerCase();
   
@@ -23,7 +26,10 @@ const analyzeContent = async (content) => {
     /\b(security|support|team|admin)\b.*\b(alert|update|notification)\b/i,
     /\b(failure to act|immediate action|urgent)\b/i,
     /\b(congratulations|lucky|won|winner)\b.*\b(prize|reward|amount|cash|lottery)\b/i, // Scam rewards
-    /\b(bank details|account details|credit card)\b.*\b(submit|provide|verify|update)\b/i // Financial phishing
+    /\b(bank details|account details|credit card)\b.*\b(submit|provide|verify|update)\b/i, // Financial phishing
+    /\b(database|server|system)\b.*\b(hacked|breached|compromised|encrypted|down)\b/i, // Breach / Ransomware
+    /\b(ransom|decrypt|payment|bitcoin)\b/i, // Ransomware specific
+    /\b(unauthorized|suspicious)\b.*\b(download|access|export|transfer|logins?)\b/i // Insider threat / exfiltration
   ];
   
   const matchedPatterns = patterns.filter(p => p.test(content));
@@ -33,18 +39,18 @@ const analyzeContent = async (content) => {
   if (score >= 4) {
     return {
       isSuspicious: true,
-      type: 'Critical Phishing Attempt',
+      type: 'Critical Cybersecurity Threat',
       severity: 'High',
       confidence: 0.95,
-      reason: `High risk patterns detected: ${matchedKeywords.slice(0, 3).join(', ')}${matchedPatterns.length > 0 ? ' + pattern matches' : ''}`
+      reason: `Critical risk patterns detected: ${matchedKeywords.slice(0, 3).join(', ')}${matchedPatterns.length > 0 ? ' + pattern matches' : ''}`
     };
-  } else if (score >= 1) {
+  } else if (score >= 2) {
     return {
       isSuspicious: true,
-      type: 'Suspicious Content Detected',
+      type: 'Suspicious Security Indicator',
       severity: 'Medium',
       confidence: 0.75,
-      reason: `Suspicious elements found: ${matchedKeywords[0] || 'Phishing pattern'}`
+      reason: `Suspicious elements found: ${matchedKeywords.slice(0, 2).join(', ') || 'Pattern match'}`
     };
   }
   

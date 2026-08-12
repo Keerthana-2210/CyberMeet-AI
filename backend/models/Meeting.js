@@ -36,6 +36,9 @@ class Meeting {
     this.sentimentScore = data.sentimentScore;
     this.actionItems = data.actionItems || [];
     this.executionPlan = data.executionPlan || [];
+    this.agentActions = data.agentActions || [];
+    this.securityStatus = data.securityStatus || 'No Threat';
+    this.incidentTicket = data.incidentTicket || null;
     this.createdAt = new Date();
   }
 

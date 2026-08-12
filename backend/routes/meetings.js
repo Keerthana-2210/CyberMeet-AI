@@ -7,7 +7,9 @@ const Meeting = require('../models/Meeting');
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-const processMeeting = async (title, audioPath) => {
+const agentOrchestrator = require('../services/agentOrchestrator');
+
+const processMeeting = async (meetingId, title, audioPath) => {
   try {
     let transcript = "No audio provided.";
     if (audioPath && fs.existsSync(audioPath)) {
@@ -19,50 +21,36 @@ const processMeeting = async (title, audioPath) => {
       transcript = transcription.text || transcription;
     }
 
-    const prompt = `Analyze the following meeting transcript. Provide a JSON response with the following keys exactly:
-"summary": A detailed, multi-point overview of what was discussed.
-"sentiment": A single word (Positive, Neutral, or Negative).
-"sentimentScore": A number from 0 to 1 representing the positivity.
-"actionItems": An array of objects, each with "task", "assignee", and "status".
-"executionPlan": An array of objects for major tasks with the following keys:
-  - "taskName": The main goal (e.g., Fix back-end database)
-  - "description": Brief overview of why this is needed
-  - "priority": High, Medium, or Low
-  - "assignedPerson": Name (infer from transcript or use 'Unassigned')
-  - "role": (Frontend, Backend, DevOps, QA, Product)
-  - "deadline": Inferred deadline (e.g., '2026-04-23') or 'TBD'
-  - "risk": (Active, Delayed, High Risk) based on context
-  - "subtasks": Array of objects with "id", "text", and "completed" (false)
+    // Delegate analysis & security workflow to Agent Orchestrator
+    const agentState = await agentOrchestrator.runAgentWorkflow(transcript, title, meetingId);
 
-Transcript:
-${transcript}`;
-
-    const chatCompletion = await groq.chat.completions.create({
-      messages: [{ role: "user", content: prompt }],
-      model: "llama-3.1-8b-instant",
-      temperature: 0.2,
-      response_format: { type: "json_object" }
+    // Persist final agent state into database
+    await Meeting.findByIdAndUpdate(meetingId, {
+      transcript: agentState.transcript,
+      summary: agentState.summary,
+      sentiment: agentState.sentiment,
+      sentimentScore: agentState.sentimentScore,
+      actionItems: agentState.actionItems,
+      executionPlan: agentState.executionPlan,
+      securityStatus: agentState.securityStatus,
+      incidentTicket: agentState.incidentTicket,
+      agentActions: agentState.agentActions
     });
-
-    const aiResult = JSON.parse(chatCompletion.choices[0].message.content);
-    
-    return {
-      transcript: transcript,
-      summary: aiResult.summary || "Summary not generated.",
-      sentiment: aiResult.sentiment || "Neutral",
-      sentimentScore: aiResult.sentimentScore || 0.5,
-      actionItems: aiResult.actionItems || [],
-      executionPlan: aiResult.executionPlan || []
-    };
   } catch (error) {
     console.error("Groq Processing Error:", error);
-    return {
-      transcript: "Error processing audio or generating response.",
-      summary: "AI processing failed.",
-      sentiment: "Neutral",
-      sentimentScore: 0.5,
-      actionItems: []
-    };
+    await Meeting.findByIdAndUpdate(meetingId, {
+      transcript: "Error processing audio.",
+      summary: "AI Agent processing encountered an error.",
+      securityStatus: "Error",
+      agentActions: [
+        {
+          timestamp: new Date().toISOString(),
+          type: "WORKFLOW_ERROR",
+          message: `Processing failed: ${error.message}`,
+          metadata: {}
+        }
+      ]
+    });
   }
 };
 
@@ -85,37 +73,8 @@ router.post('/upload', upload.single('audio'), async (req, res) => {
     const meeting = new Meeting({ title, audioUrl: req.file ? req.file.path : null });
     await meeting.save();
     
-    // Background processing
-    processMeeting(title, meeting.audioUrl).then(async (result) => {
-      try {
-        await Meeting.findByIdAndUpdate(meeting._id, result);
-        
-        // --- NEW: Automatic SOC Incident Creation Pipeline ---
-        // Automatically pass the transcript and summary into the threat analysis engine
-        const analysisContent = `${result.summary}\n\n${result.transcript}`;
-        const detectionService = require('../services/detectionService');
-        const Alert = require('../models/Alert');
-        
-        const securityAnalysis = await detectionService.analyzeContent(analysisContent);
-        
-        if (securityAnalysis.isSuspicious) {
-          console.log(`Security Incident Detected in Meeting: ${title}`);
-          const newAlert = new Alert({
-            type: securityAnalysis.type,
-            severity: securityAnalysis.severity,
-            description: securityAnalysis.reason,
-            source: `Meeting Integration: ${title}`
-          });
-          
-          await newAlert.save();
-          // Optionally, auto-generate a ticket immediately:
-          await Alert.findByIdAndUpdate(newAlert._id, { status: 'In Progress', ticketCreated: true });
-        }
-        
-      } catch (err) {
-        console.error('Background Update Error:', err);
-      }
-    }).catch(err => console.error('Mock Processing Error:', err));
+    // Background Agent Workflow Processing
+    processMeeting(meeting._id, title, meeting.audioUrl).catch(err => console.error('Agent Background Error:', err));
 
     res.json(meeting);
   } catch (err) {

@@ -1,0 +1,112 @@
+[
+  {
+    "id": "tc-01",
+    "name": "Sprint Planning (Normal Meeting)",
+    "transcript": "Team, let us review our sprint goals. Alex will update the user login frontend components by Thursday. Sarah needs to patch the API backend routes and write unit tests for authentication. Everyone agree on the timeline? Great, meeting adjourned.",
+    "expected": {
+      "expectTasks": true,
+      "expectThreat": false,
+      "expectTicket": false,
+      "expectedTools": ["summarize_meeting", "extract_tasks"]
+    }
+  },
+  {
+    "id": "tc-02",
+    "name": "Casual 1-on-1 Sync (No Tasks)",
+    "transcript": "Hey Mark, just checking in on how your week is going. Things are going fine, enjoying the weather. No major blockers or action items for today. Catch you later!",
+    "expected": {
+      "expectTasks": false,
+      "expectThreat": false,
+      "expectTicket": false,
+      "expectedTools": ["summarize_meeting", "extract_tasks"]
+    }
+  },
+  {
+    "id": "tc-03",
+    "name": "Critical Database Breach (Ransomware Attack)",
+    "transcript": "Urgent alert! Our production database server has been hacked and encrypted by ransomware at 3 AM. The attacker left a ransom note demanding bitcoin payment to decrypt files. All customer records are compromised and system access is disabled.",
+    "expected": {
+      "expectTasks": true,
+      "expectThreat": true,
+      "expectTicket": true,
+      "expectedTools": ["summarize_meeting", "extract_tasks", "detect_security_threat", "create_incident_ticket"]
+    }
+  },
+  {
+    "id": "tc-04",
+    "name": "Phishing & Credential Harvester Alert",
+    "transcript": "Attention Security Team: Multiple employees received an official notice email claiming their account access is suspended. The link redirects to http://verify-credentials.xyz asking users to input their corporate password and credit card details.",
+    "expected": {
+      "expectTasks": true,
+      "expectThreat": true,
+      "expectTicket": true,
+      "expectedTools": ["summarize_meeting", "extract_tasks", "detect_security_threat", "create_incident_ticket"]
+    }
+  },
+  {
+    "id": "tc-05",
+    "name": "Insider Threat & Data Exfiltration",
+    "transcript": "SOC Monitor alert: An unauthorized access attempt was detected where 50GB of confidential source code was exfiltrated to an external IP. The employee account involved has been locked, but investigation is required immediately.",
+    "expected": {
+      "expectTasks": true,
+      "expectThreat": true,
+      "expectTicket": true,
+      "expectedTools": ["summarize_meeting", "extract_tasks", "detect_security_threat", "create_incident_ticket"]
+    }
+  },
+  {
+    "id": "tc-06",
+    "name": "Benign Discussion with Suspicious Keywords (False Alarm Test)",
+    "transcript": "During our routine security awareness seminar, we explained why employees must change their password quarterly and never click unknown links. This is standard corporate policy training.",
+    "expected": {
+      "expectTasks": false,
+      "expectThreat": false,
+      "expectTicket": false,
+      "expectedTools": ["summarize_meeting", "extract_tasks"]
+    }
+  },
+  {
+    "id": "tc-07",
+    "name": "DevOps Infrastructure Migration",
+    "transcript": "We are migrating our Kubernetes clusters to AWS US-East region this weekend. Dave will manage the DNS switchover, and Rachel will verify node health metrics after deployment.",
+    "expected": {
+      "expectTasks": true,
+      "expectThreat": false,
+      "expectTicket": false,
+      "expectedTools": ["summarize_meeting", "extract_tasks"]
+    }
+  },
+  {
+    "id": "tc-08",
+    "name": "Q3 Financial Budget Review",
+    "transcript": "Let us finalize the Q3 budget allocations. Finance approved $40,000 for cloud infrastructure and $15,000 for R&D tooling. John will submit the expense report by Friday.",
+    "expected": {
+      "expectTasks": true,
+      "expectThreat": false,
+      "expectTicket": false,
+      "expectedTools": ["summarize_meeting", "extract_tasks"]
+    }
+  },
+  {
+    "id": "tc-09",
+    "name": "QA Bug Triage Meeting",
+    "transcript": "Reviewing bug backlog: Bug #402 causes checkout page lag. Bug #405 breaks mobile navigation drawer. Emily will patch #402 and QA will retest tomorrow.",
+    "expected": {
+      "expectTasks": true,
+      "expectThreat": false,
+      "expectTicket": false,
+      "expectedTools": ["summarize_meeting", "extract_tasks"]
+    }
+  },
+  {
+    "id": "tc-10",
+    "name": "Malware Outbreak Emergency",
+    "transcript": "Emergency declaration: A critical malware Trojan was executed on three workstations in marketing. The malware is attempting lateral movement across the internal subnet.",
+    "expected": {
+      "expectTasks": true,
+      "expectThreat": true,
+      "expectTicket": true,
+      "expectedTools": ["summarize_meeting", "extract_tasks", "detect_security_threat", "create_incident_ticket"]
+    }
+  }
+]

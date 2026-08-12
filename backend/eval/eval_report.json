@@ -1,0 +1,151 @@
+{
+  "timestamp": "2026-08-12T09:43:40.974Z",
+  "totalTests": 10,
+  "passedTests": 9,
+  "passRate": "90.0%",
+  "results": [
+    {
+      "id": "tc-01",
+      "name": "Sprint Planning (Normal Meeting)",
+      "passed": true,
+      "durationMs": 4758,
+      "executedTools": [
+        "summarize_meeting",
+        "extract_tasks"
+      ],
+      "securityStatus": "No Threat Detected",
+      "ticketCreated": false,
+      "errors": []
+    },
+    {
+      "id": "tc-02",
+      "name": "Casual 1-on-1 Sync (No Tasks)",
+      "passed": true,
+      "durationMs": 819,
+      "executedTools": [
+        "summarize_meeting",
+        "extract_tasks"
+      ],
+      "securityStatus": "No Threat Detected",
+      "ticketCreated": false,
+      "errors": []
+    },
+    {
+      "id": "tc-03",
+      "name": "Critical Database Breach (Ransomware Attack)",
+      "passed": true,
+      "durationMs": 3080,
+      "executedTools": [
+        "summarize_meeting",
+        "extract_tasks",
+        "detect_security_threat",
+        "create_incident_ticket"
+      ],
+      "securityStatus": "Critical Threat Detected",
+      "ticketCreated": true,
+      "errors": []
+    },
+    {
+      "id": "tc-04",
+      "name": "Phishing & Credential Harvester Alert",
+      "passed": true,
+      "durationMs": 7270,
+      "executedTools": [
+        "summarize_meeting",
+        "extract_tasks",
+        "detect_security_threat",
+        "create_incident_ticket"
+      ],
+      "securityStatus": "Critical Threat Detected",
+      "ticketCreated": true,
+      "errors": []
+    },
+    {
+      "id": "tc-05",
+      "name": "Insider Threat & Data Exfiltration",
+      "passed": true,
+      "durationMs": 2155,
+      "executedTools": [
+        "summarize_meeting",
+        "extract_tasks",
+        "detect_security_threat",
+        "create_incident_ticket"
+      ],
+      "securityStatus": "Critical Threat Detected",
+      "ticketCreated": true,
+      "errors": []
+    },
+    {
+      "id": "tc-06",
+      "name": "Benign Discussion with Suspicious Keywords (False Alarm Test)",
+      "passed": true,
+      "durationMs": 3218,
+      "executedTools": [
+        "summarize_meeting",
+        "extract_tasks",
+        "detect_security_threat"
+      ],
+      "securityStatus": "No Threat Detected",
+      "ticketCreated": false,
+      "errors": []
+    },
+    {
+      "id": "tc-07",
+      "name": "DevOps Infrastructure Migration",
+      "passed": true,
+      "durationMs": 10056064,
+      "executedTools": [
+        "summarize_meeting",
+        "extract_tasks",
+        "detect_security_threat"
+      ],
+      "securityStatus": "Scan Failed",
+      "ticketCreated": false,
+      "errors": []
+    },
+    {
+      "id": "tc-08",
+      "name": "Q3 Financial Budget Review",
+      "passed": true,
+      "durationMs": 4921,
+      "executedTools": [
+        "summarize_meeting",
+        "extract_tasks"
+      ],
+      "securityStatus": "No Threat Detected",
+      "ticketCreated": false,
+      "errors": []
+    },
+    {
+      "id": "tc-09",
+      "name": "QA Bug Triage Meeting",
+      "passed": true,
+      "durationMs": 2391,
+      "executedTools": [
+        "summarize_meeting",
+        "extract_tasks"
+      ],
+      "securityStatus": "No Threat Detected",
+      "ticketCreated": false,
+      "errors": []
+    },
+    {
+      "id": "tc-10",
+      "name": "Malware Outbreak Emergency",
+      "passed": false,
+      "durationMs": 55177780,
+      "executedTools": [
+        "summarize_meeting",
+        "extract_tasks",
+        "detect_security_threat"
+      ],
+      "securityStatus": "Scan Failed",
+      "ticketCreated": false,
+      "errors": [
+        "Security threat mismatch. Expected: true, Got: false",
+        "Incident ticket mismatch. Expected: true, Got: false",
+        "Missing expected tool calls: create_incident_ticket"
+      ]
+    }
+  ]
+}
